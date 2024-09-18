@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .signup-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .signup-container input[type="text"],
+        .signup-container input[type="password"],
+        .signup-container input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .signup-container input[type="file"] {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .signup-container button:hover {
+            background-color: #218838;
+        }
+
+        .signup-container p {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .signup-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .signup-container a:hover {
+            text-decoration: underline;
+        }
+
+        .home-link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .home-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h2>Admin Signup</h2>
+        <form>
+            <!-- Name Field -->
+            <input type="text" placeholder="Enter your name" required>
+            <!-- Email Field -->
+            <input type="email" placeholder="Enter your email" required>
+            <!-- Password Field -->
+            <input type="password" placeholder="Enter your password" required>
+            <!-- Profile Picture Upload -->
+            <input type="file" accept="image/*" required>
+            <!-- Signup Button -->
+            <button type="submit">Signup</button>
+            <p>Already have an account? <a href="../login/index.html">Log In</a></p>
+            <!-- Go to Home link -->
+            <div class="home-link-container">
+                <a href="../../index.html" class="home-link">Go to Home</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

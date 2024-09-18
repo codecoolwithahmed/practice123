@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registration-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .registration-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .registration-container input[type="text"],
+        .registration-container input[type="email"],
+        .registration-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .registration-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .registration-container button:hover {
+            background-color: #218838;
+        }
+
+        .registration-container p {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .registration-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .registration-container a:hover {
+            text-decoration: underline;
+        }
+
+        .home-link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .home-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="registration-container">
+        <h2>Student Registration</h2>
+        <form>
+            <!-- First Name Field -->
+            <input type="text" placeholder="First Name" required>
+            <!-- Last Name Field -->
+            <input type="text" placeholder="Last Name" required>
+            <!-- Email Field -->
+            <input type="email" placeholder="Email" required>
+            <!-- Password Field -->
+            <input type="password" placeholder="Password" required>
+            <!-- CNIC Field -->
+            <input type="text" placeholder="CNIC" required>
+            <!-- Course  Field -->
+            <input type="text" placeholder="Course" required>
+            <!-- Register Button -->
+            <button type="submit">Register</button>
+            <!-- Already Student Button -->
+            <p>Already a Student here? <a href="../login/index.html">Log In</a> </p>
+            <!-- Go to Home link -->
+            <div class="home-link-container">
+                <a href="../../index.html" class="home-link">Go to Home</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

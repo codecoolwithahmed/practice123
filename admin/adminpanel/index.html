@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .student-cards-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .student-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative; /* Added for positioning buttons */
+        }
+
+        .student-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .student-card:hover {
+            transform: scale(1.05);
+        }
+
+        .student-card .btn-edit, .student-card .btn-delete {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        .student-card .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .student-card .btn-edit:hover {
+            background-color: #0056b3;
+        }
+
+        .student-card .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e53935;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Student List</h2>
+    <div class="student-cards-container" id="studentCardsContainer"></div>
+
+    <!-- Modal for Editing Student Info -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Edit Student Info</h3>
+            <form id="editForm" onsubmit="updateStudent(event)">
+                <input type="hidden" id="studentIndex">
+
+                <label for="name">Name:</label>
+                <input type="text" id="nameInput" name="name" required><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="emailInput" name="email" required><br><br>
+
+                <label for="cnic">CNIC:</label>
+                <input type="text" id="cnicInput" name="cnic" required><br><br>
+
+                <label for="course">Course:</label>
+                <input type="text" id="courseInput" name="course" required><br><br>
+
+                <label for="marks">Marks:</label>
+                <input type="number" id="marksInput" name="marks" required><br><br>
+
+                <label for="grade">Grade:</label>
+                <input type="text" id="gradeInput" name="grade" required><br><br>
+
+                <label for="total">Total Marks:</label>
+                <input type="number" id="totalInput" name="total" required><br><br>
+
+                <button type="submit">Submit</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const students = [
+            { name: 'John Doe', email: 'johndoe@example.com', cnic: '12345-6789012-3', course: 'Computer Science', marks: 'Not Entered', grade: 'Not Entered', total: 'Not Entered' },
+            { name: 'Jane Smith', email: 'janesmith@example.com', cnic: '98765-4321012-3', course: 'Mathematics', marks: 'Not Entered', grade: 'Not Entered', total: 'Not Entered' },
+            { name: 'Alex Johnson', email: 'alexj@example.com', cnic: '54321-1234567-8', course: 'Physics', marks: 'Not Entered', grade: 'Not Entered', total: 'Not Entered' }
+        ];
+
+        const studentCardsContainer = document.getElementById('studentCardsContainer');
+        students.forEach((student, index) => {
+            const card = document.createElement('div');
+            card.classList.add('student-card');
+            card.innerHTML = `
+                <img src="../../images/11.jpg" alt="Student Photo">
+                <h3>${student.name}</h3>
+                <p>Email: ${student.email}</p>
+                <p>CNIC: ${student.cnic}</p>
+                <p>Course: ${student.course}</p>
+                <p id="marks-${index}">Marks: ${student.marks}</p>
+                <p id="grade-${index}">Grade: ${student.grade}</p>
+                <p id="total-marks-${index}">Total Marks: ${student.total}</p>
+                <button class="btn-edit" onclick="openModal(${index})">Edit</button>
+                <button class="btn-delete" onclick="deleteCard(${index})">Delete</button>
+            `;
+            studentCardsContainer.appendChild(card);
+        });
+
+        function openModal(studentIndex) {
+            const student = students[studentIndex];
+            document.getElementById('modalTitle').textContent = `Edit Student Info for ${student.name}`;
+            document.getElementById('studentIndex').value = studentIndex;
+            document.getElementById('nameInput').value = student.name;
+            document.getElementById('emailInput').value = student.email;
+            document.getElementById('cnicInput').value = student.cnic;
+            document.getElementById('courseInput').value = student.course;
+            document.getElementById('marksInput').value = student.marks;
+            document.getElementById('gradeInput').value = student.grade;
+            document.getElementById('totalInput').value = student.total;
+            document.getElementById('editModal').style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = "none";
+        }
+
+        function updateStudent(event) {
+            event.preventDefault();
+
+            const studentIndex = document.getElementById('studentIndex').value;
+            const name = document.getElementById('nameInput').value;
+            const email = document.getElementById('emailInput').value;
+            const cnic = document.getElementById('cnicInput').value;
+            const course = document.getElementById('courseInput').value;
+            const marks = document.getElementById('marksInput').value;
+            const grade = document.getElementById('gradeInput').value;
+            const total = document.getElementById('totalInput').value;
+
+            students[studentIndex] = { name, email, cnic, course, marks, grade, total };
+
+            const card = document.querySelector(`.student-card:nth-child(${parseInt(studentIndex) + 1})`);
+            card.innerHTML = `
+                <img src="../../images/11.jpg" alt="Student Photo">
+                <h3>${name}</h3>
+                <p>Email: ${email}</p>
+                <p>CNIC: ${cnic}</p>
+                <p>Course: ${course}</p>
+                <p id="marks-${studentIndex}">Marks: ${marks}</p>
+                <p id="grade-${studentIndex}">Grade: ${grade}</p>
+                <p id="total-marks-${studentIndex}">Total Marks: ${total}</p>
+                <button class="btn-edit" onclick="openModal(${studentIndex})">Edit</button>
+                <button class="btn-delete" onclick="deleteCard(${studentIndex})">Delete</button>
+            `;
+
+            closeModal();
+        }
+
+        function deleteCard(studentIndex) {
+            const card = document.querySelector(`.student-card:nth-child(${studentIndex + 1})`);
+            card.remove(); // Remove the card from DOM
+            students.splice(studentIndex, 1); // Remove student data from array
+        }
+    </script>
+
+</body>
+</html>
